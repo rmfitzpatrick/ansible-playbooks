@@ -1,0 +1,7 @@
+---
+- hosts: all
+  tasks:
+    - ovirt_vms:
+          name: rfitzpat_tower_integration_testing
+          template: golden_mixed_virtio_template
+          cluster: golden_env_mixed_1

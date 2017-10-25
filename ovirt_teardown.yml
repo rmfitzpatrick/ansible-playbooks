@@ -1,0 +1,6 @@
+---
+- hosts: all
+  tasks:
+    - ovirt_vms:
+        state: absent
+        name: rfitzpat_tower_integration_testing
