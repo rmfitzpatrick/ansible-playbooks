@@ -4,10 +4,6 @@
   gather_facts: false
   tasks:
     - debug:
-        msg: '{{ansible_distribution}}'
-      tags:
-        - ansible_facts
-    - debug:
         msg: '{{ansible_machine}}'
       tags:
         - ansible_facts
