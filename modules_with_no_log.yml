@@ -1,0 +1,35 @@
+---
+- hosts: all
+  vars:
+    uri_password: "don't log this password"
+    copy_content: "don't log this content"
+    pk_passphrase: "don't log this passphrase"
+  tasks:
+    - name: uri module w/ implicit no_log
+      uri:
+        url: https://example.com/some_page/
+        method: POST 
+        username: username
+        password: "{{ uri_password }}"
+        status_code: '404,411'
+
+    - name: copy content with implicit no_log
+      block:
+        - copy:
+            content: "{{ copy_content }}" 
+            dest: /tmp/tmp_no_log
+      always:
+        - file:
+            path: /tmp/tmp_no_log
+            state: absent
+        
+    - name: create a private key with a passphrase
+      block:
+        - openssl_privatekey:
+            path: /tmp/tmp_private_key_no_log.pem
+            passphrase: "{{ pk_passphrase }}"
+            cipher: aes256
+      always:
+        - file:
+            path: /tmp/tmp_private_key_no_log.pem
+            state: absent
